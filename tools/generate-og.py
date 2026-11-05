@@ -120,7 +120,6 @@ def main():
     rect(80, 440, WIDTH - 160, 2, INK)
     text("WEB / PYTHON / ML", 80, 480, 5, MUTED)
     text("DZAKK - 2026", 80, 560, 4, MUTED)
-    text("HAND-BUILT", 880, 560, 4, MUTED)
 
     # Accent rule at the very bottom
     rect(0, HEIGHT - 10, WIDTH, 10, ACCENT)

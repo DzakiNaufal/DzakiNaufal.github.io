@@ -1,19 +1,14 @@
-# Dzakk — Portfolio
+# Dzaki Naufal — Portfolio
 
-Portofolio statis yang ditulis manual dengan HTML, CSS, dan JavaScript. Tanpa framework, tanpa build step, tanpa dependensi runtime.
+Portofolio statis berbasis HTML, CSS, dan JavaScript murni.
 
-## Menjalankan di HP
-
-Buka Termux, lalu:
+## Menjalankan Server Pengembangan Lokal
 
 ```bash
-cd /mnt/sdcard/1Dzakk/Coding/Test
 python3 -m http.server 8000
 ```
 
 Buka `http://localhost:8000` di browser. Hentikan server dengan `Ctrl+C`.
-
-Server ini juga bisa diakses dari perangkat lain di Wi-Fi yang sama lewat `http://IP-HP:8000`.
 
 ## Struktur
 

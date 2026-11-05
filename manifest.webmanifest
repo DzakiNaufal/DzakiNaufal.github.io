@@ -1,7 +1,7 @@
 {
-  "name": "Dzakk — Portfolio",
-  "short_name": "Dzakk",
-  "description": "Portofolio front-end, Python, dan dasar machine learning. Dibangun manual tanpa framework.",
+  "name": "Dzaki Naufal — Portfolio",
+  "short_name": "Dzaki Naufal",
+  "description": "Portofolio Dzaki Naufal: dokumentasi web, Python, dan dasar machine learning.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
