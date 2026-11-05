@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator CLI — Proyek Python Dzakk</title>
+  <meta name="description" content="Studi kasus dan kode sumber kalkulator CLI Python sederhana dengan operasi aritmetika dan akar kuadrat.">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f1ea">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#12110f">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Kalkulator CLI — Proyek Python Dzakk">
+  <meta property="og:description" content="Studi kasus dan kode sumber kalkulator CLI Python sederhana dengan operasi aritmetika dan akar kuadrat.">
+  <meta property="og:image" content="../assets/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/img/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f1ea;
+      --surface: #faf8f3;
+      --ink: #171411;
+      --muted: #665e52;
+      --line: #d6cfbf;
+      --accent: #a33d1f;
+      --string: #2d5a3f;
+      --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --bg: #12110f;
+        --surface: #1a1814;
+        --ink: #ece6da;
+        --muted: #999184;
+        --line: #322e27;
+        --accent: #e0a458;
+        --string: #7fbf8f;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: clamp(1.5rem, 6vw, 4rem) 1.25rem;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 2.5rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .back:hover { color: var(--accent); border-color: var(--accent); }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 8vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .lede {
+      margin: 0 0 2rem;
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    /* Code Box Container */
+    .code-box {
+      margin: 2.5rem 0 3rem;
+      border: 1.5px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+    }
+
+    .code-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .file-name {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .file-badge {
+      padding: 0.15rem 0.4rem;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 0.6rem;
+    }
+
+    .code-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .code-btn,
+    .code-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.55rem;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .code-btn:hover,
+    .code-link:hover {
+      border-color: var(--ink);
+      color: var(--accent);
+    }
+
+    .code-btn:active,
+    .code-link:active {
+      transform: translate(1px, 1px);
+    }
+
+    .code-viewport {
+      overflow-x: auto;
+      padding: 1.25rem 0;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.65;
+    }
+
+    pre {
+      margin: 0;
+      font-family: inherit;
+    }
+
+    code {
+      display: block;
+      counter-reset: line;
+      font-family: inherit;
+      white-space: pre;
+    }
+
+    .line {
+      display: flex;
+      padding-right: 1.5rem;
+      border-left: 2px solid transparent;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .line:hover,
+    .line:active {
+      background: rgba(30, 58, 95, 0.06);
+      border-left-color: var(--accent);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .line:hover,
+      .line:active {
+        background: rgba(126, 170, 208, 0.08);
+        border-left-color: var(--accent);
+      }
+    }
+
+    .line::before {
+      counter-increment: line;
+      content: counter(line);
+      display: inline-block;
+      width: 3.2rem;
+      min-width: 3.2rem;
+      padding-right: 1.2rem;
+      text-align: right;
+      color: var(--muted);
+      opacity: 0.55;
+      user-select: none;
+    }
+
+    /* Syntax highlight colors (editorial, non-neon) */
+    .k { color: var(--accent); font-weight: 600; } /* keywords */
+    .s { color: var(--string); }                   /* strings */
+    .fn { color: var(--ink); font-weight: 600; }   /* function name */
+    .op { color: var(--muted); }                   /* operators */
+
+    /* Terminal Output Box */
+    .terminal-box {
+      margin: 2.5rem 0 3rem;
+      border: 1.5px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .terminal-body {
+      padding: 1.25rem 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .term-prompt {
+      color: var(--accent);
+      user-select: none;
+      margin-right: 0.45rem;
+    }
+
+    .term-cmd {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .term-in {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .term-out {
+      color: var(--ink);
+    }
+
+    .term-dim {
+      color: var(--muted);
+    }
+
+    /* Breakdown Section */
+    h2 {
+      margin: 2.5rem 0 1rem;
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    p { margin: 0 0 1rem; }
+
+    .breakdown-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .breakdown-card {
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .breakdown-card h3 {
+      margin: 0 0 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .breakdown-card p {
+      margin: 0;
+      font-size: 0.94rem;
+      color: var(--muted);
+    }
+
+    /* Navigation Footer */
+    .proj-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .proj-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .proj-nav a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.5rem;
+      padding: 0.6rem 1rem;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transform: translate(-50%, 15px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      z-index: 100;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    @media (max-width: 540px) {
+      .code-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .code-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .proj-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../index.html">← Kembali ke portofolio</a>
+
+    <p class="eyebrow">Proyek 01 · Python CLI</p>
+    <h1>Kalkulator Sederhana</h1>
+    <p class="lede">Latihan logika pemrograman dasar dengan Python: memecah operasi aritmetika ke dalam fungsi modular, menerima input angka di terminal, dan mengarahkan alur perhitungan dengan percabangan kondisi.</p>
+
+    <div class="code-box">
+      <div class="code-header">
+        <div class="code-meta">
+          <span class="file-name">kalkulator.py</span>
+          <span class="file-badge">38 Baris</span>
+        </div>
+        <div class="code-actions">
+          <button class="code-btn" type="button" id="copy-btn">
+            <span id="copy-text">Salin Kode</span>
+          </button>
+          <a class="code-link" href="kalkulator.py" download="kalkulator.py">Unduh .py ↘</a>
+        </div>
+      </div>
+
+      <div class="code-viewport">
+        <pre><code><span class="line"><span class="k">import</span> math</span>
+<span class="line"></span>
+<span class="line"><span class="k">def</span> <span class="fn">tambah</span>(a, b):</span>
+<span class="line">    <span class="k">return</span> a <span class="op">+</span> b</span>
+<span class="line"></span>
+<span class="line"><span class="k">def</span> <span class="fn">kurang</span>(a, b):</span>
+<span class="line">    <span class="k">return</span> a <span class="op">-</span> b</span>
+<span class="line"></span>
+<span class="line"><span class="k">def</span> <span class="fn">kali</span>(a, b):</span>
+<span class="line">    <span class="k">return</span> a <span class="op">*</span> b</span>
+<span class="line"></span>
+<span class="line"><span class="k">def</span> <span class="fn">bagi</span>(a, b):</span>
+<span class="line">    <span class="k">return</span> a <span class="op">/</span> b</span>
+<span class="line"></span>
+<span class="line"><span class="k">def</span> <span class="fn">akar</span>(a):</span>
+<span class="line">    <span class="k">return</span> math.sqrt(a)</span>
+<span class="line"></span>
+<span class="line"><span class="k">print</span>(<span class="s">"==== Kalkulator Sederhana ===="</span>)</span>
+<span class="line">a <span class="op">=</span> <span class="fn">float</span>(<span class="fn">input</span>(<span class="s">"Masukkan nilai a = "</span>))</span>
+<span class="line">b <span class="op">=</span> <span class="fn">float</span>(<span class="fn">input</span>(<span class="s">"Masukkan nilai a = "</span>))</span>
+<span class="line"><span class="k">print</span>(<span class="s">"1. Tambah"</span>)</span>
+<span class="line"><span class="k">print</span>(<span class="s">"2. Kurang"</span>)</span>
+<span class="line"><span class="k">print</span>(<span class="s">"3. Kali"</span>)</span>
+<span class="line"><span class="k">print</span>(<span class="s">"4. Bagi"</span>)</span>
+<span class="line"><span class="k">print</span>(<span class="s">"5. Akar (hanya nilai a)"</span>)</span>
+<span class="line">pilihan <span class="op">=</span> <span class="fn">int</span>(<span class="fn">input</span>(<span class="s">"Masukkan Pilihan = "</span>))</span>
+<span class="line"></span>
+<span class="line"><span class="k">if</span> pilihan <span class="op">==</span> 1:</span>
+<span class="line">    <span class="k">print</span>(<span class="s">"Hasil dari {} + {} = {}"</span>.format(a, b, tambah(a, b)))</span>
+<span class="line"><span class="k">elif</span> pilihan <span class="op">==</span> 2:</span>
+<span class="line">    <span class="k">print</span>(<span class="s">"Hasil dari {} - {} = {}"</span>.format(a, b, kurang(a, b)))</span>
+<span class="line"><span class="k">elif</span> pilihan <span class="op">==</span> 3:</span>
+<span class="line">    <span class="k">print</span>(<span class="s">"Hasil dari {} * {} = {}"</span>.format(a, b, kali(a, b)))</span>
+<span class="line"><span class="k">elif</span> pilihan <span class="op">==</span> 4:</span>
+<span class="line">    <span class="k">print</span>(<span class="s">"Hasil dari {} / {} = {}"</span>.format(a, b, bagi(a, b)))</span>
+<span class="line"><span class="k">elif</span> pilihan <span class="op">==</span> 5:</span>
+<span class="line">    <span class="k">print</span>(<span class="s">"Akar kuadrat dari {} = {}"</span>.format(a, akar(a)))</span>
+<span class="line"><span class="k">else</span>:</span>
+<span class="line">    <span class="k">print</span>(<span class="s">"Pilihan tidak valid!"</span>)</span></code></pre>
+      </div>
+    </div>
+
+    <div class="terminal-box">
+      <div class="terminal-header">
+        <span>Contoh Eksekusi Terminal</span>
+        <span>bash · python3</span>
+      </div>
+      <div class="terminal-body"><span class="term-prompt">$</span><span class="term-cmd">python3 kalkulator.py</span>
+<span class="term-dim">==== Kalkulator Sederhana ====</span>
+Masukkan nilai a = <span class="term-in">12</span>
+Masukkan nilai b = <span class="term-in">4</span>
+1. Tambah
+2. Kurang
+3. Kali
+4. Bagi
+5. Akar (hanya nilai a)
+Masukkan Pilihan = <span class="term-in">4</span>
+<span class="term-out">Hasil dari 12.0 / 4.0 = 3.0</span>
+
+<span class="term-prompt">$</span><span class="term-cmd">python3 kalkulator.py</span>
+<span class="term-dim">==== Kalkulator Sederhana ====</span>
+Masukkan nilai a = <span class="term-in">25</span>
+Masukkan nilai b = <span class="term-in">0</span>
+1. Tambah
+2. Kurang
+3. Kali
+4. Bagi
+5. Akar (hanya nilai a)
+Masukkan Pilihan = <span class="term-in">5</span>
+<span class="term-out">Akar kuadrat dari 25.0 = 5.0</span></div>
+    </div>
+
+    <h2>Catatan &amp; Bedah Alur</h2>
+    <div class="breakdown-grid">
+      <div class="breakdown-card">
+        <h3>1. Modularisasi Fungsi</h3>
+        <p>Setiap operasi matematika dipisahkan ke dalam fungsi tersendiri (<code>tambah</code>, <code>kurang</code>, <code>kali</code>, <code>bagi</code>, <code>akar</code>). Ini membuat alur komputasi terisolasi dan mudah diuji secara independen.</p>
+      </div>
+
+      <div class="breakdown-card">
+        <h3>2. Tipe Data &amp; Modul Eksternal</h3>
+        <p>Input pengguna dikonversi secara eksplisit menjadi <code>float</code> agar mendukung bilangan berkoma, sedangkan nomor menu dikonversi ke <code>int</code>. Untuk akar kuadrat, script memanfaatkan fungsi <code>sqrt</code> dari modul standar <code>math</code>.</p>
+      </div>
+
+      <div class="breakdown-card">
+        <h3>3. Evaluasi &amp; Catatan Jujur</h3>
+        <p>Script ini masih rentan crash jika pengguna membagi angka dengan nol (<code>ZeroDivisionError</code>) atau memasukkan teks saat diminta angka (<code>ValueError</code>). Langkah penyempurnaan berikutnya adalah membungkus pembagian dan input dengan blok <code>try...except</code>.</p>
+      </div>
+    </div>
+
+    <div class="proj-nav">
+      <span>Proyek Sebelumnya: —</span>
+      <a href="cek-bilangan.html">Proyek Berikutnya: Cek Bilangan →</a>
+    </div>
+
+    <footer>Dzakk · Kalkulator Sederhana · 2026</footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Kode berhasil disalin</div>
+
+  <script>
+    (function() {
+      var copyBtn = document.getElementById("copy-btn");
+      var copyText = document.getElementById("copy-text");
+      var toast = document.getElementById("toast");
+      var timer = null;
+
+      var rawCode = 'import math\n\ndef tambah(a, b):\n    return a + b\n\ndef kurang(a, b):\n    return a - b\n\ndef kali(a, b):\n    return a * b\n\ndef bagi(a, b):\n    return a / b\n\ndef akar(a):\n    return math.sqrt(a)\n\nprint("==== Kalkulator Sederhana ====")\na = float(input("Masukkan nilai a = "))\nb = float(input("Masukkan nilai a = "))\nprint("1. Tambah")\nprint("2. Kurang")\nprint("3. Kali")\nprint("4. Bagi")\nprint("5. Akar (hanya nilai a)")\npilihan = int(input("Masukkan Pilihan = "))\n\nif pilihan == 1:\n    print("Hasil dari {} + {} = {}".format(a, b, tambah(a, b)))\nelif pilihan == 2:\n    print("Hasil dari {} - {} = {}".format(a, b, kurang(a, b)))\nelif pilihan == 3:\n    print("Hasil dari {} * {} = {}".format(a, b, kali(a, b)))\nelif pilihan == 4:\n    print("Hasil dari {} / {} = {}".format(a, b, bagi(a, b)))\nelif pilihan == 5:\n    print("Akar kuadrat dari {} = {}".format(a, akar(a)))\nelse:\n    print("Pilihan tidak valid!")';
+
+      if (copyBtn) {
+        copyBtn.addEventListener("click", function() {
+          function onSuccess() {
+            copyText.textContent = "Tersalin ✓";
+            toast.classList.add("show");
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+              copyText.textContent = "Salin Kode";
+              toast.classList.remove("show");
+            }, 2000);
+          }
+
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(rawCode).then(onSuccess, function() {
+              fallbackCopy(rawCode, onSuccess);
+            });
+          } else {
+            fallbackCopy(rawCode, onSuccess);
+          }
+        });
+      }
+
+      function fallbackCopy(text, cb) {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+          cb();
+        } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    })();
+  </script>
+</body>
+</html>

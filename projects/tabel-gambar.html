@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabel &amp; Gambar — Dzakk</title>
+  <meta name="description" content="Latihan struktur HTML: tabel semantik dan gambar dengan teks alternatif.">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f1ea">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#12110f">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Tabel &amp; Gambar — Dzakk">
+  <meta property="og:description" content="Latihan struktur HTML: tabel semantik dan gambar dengan teks alternatif.">
+  <meta property="og:image" content="../assets/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/img/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f1ea;
+      --surface: #faf8f3;
+      --ink: #171411;
+      --muted: #665e52;
+      --line: #d6cfbf;
+      --accent: #a33d1f;
+      --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --bg: #12110f;
+        --surface: #1a1814;
+        --ink: #ece6da;
+        --muted: #999184;
+        --line: #322e27;
+        --accent: #e0a458;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: clamp(1.5rem, 6vw, 4rem) 1.25rem;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 2.5rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+    }
+
+    .back:hover { color: var(--accent); border-color: var(--accent); }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 8vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .lede {
+      margin: 0 0 2.5rem;
+      max-width: 58ch;
+      color: var(--muted);
+    }
+
+    figure {
+      margin: 0 0 3rem;
+      border: 1.5px solid var(--ink);
+      background: var(--surface);
+    }
+
+    figure svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h2 {
+      margin: 0 0 0.75rem;
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+
+    p { margin: 0 0 1rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    caption {
+      text-align: left;
+      padding-bottom: 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    th, td {
+      padding: 0.7rem 0.6rem;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    thead th {
+      border-bottom: 1.5px solid var(--ink);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    tbody th {
+      font-weight: 600;
+    }
+
+    td:last-child, th:last-child { text-align: right; }
+
+    .note {
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .proj-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .proj-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .proj-nav a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 480px) {
+      th, td { padding: 0.6rem 0.35rem; font-size: 0.82rem; }
+      .proj-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../index.html">← Kembali ke portofolio</a>
+
+    <p class="eyebrow">Proyek 03 · HTML</p>
+    <h1>Tabel &amp; Gambar</h1>
+    <p class="lede">Latihan pertama saya menyusun dokumen HTML: gambar dengan teks alternatif, lalu tabel yang punya struktur jelas — bukan sekadar tumpukan elemen.</p>
+
+    <figure>
+      <svg viewBox="0 0 640 300" role="img" aria-labelledby="gambar-judul">
+        <title id="gambar-judul">Ilustrasi abstrak: kotak dan garis yang membentuk grid</title>
+        <rect width="640" height="300" fill="none"></rect>
+        <g fill="none" stroke="#a33d1f" stroke-width="2">
+          <rect x="40" y="40" width="120" height="120"></rect>
+          <rect x="180" y="40" width="120" height="120"></rect>
+          <rect x="320" y="40" width="120" height="120"></rect>
+          <rect x="460" y="40" width="140" height="120" stroke-dasharray="6 6"></rect>
+          <path d="M40 200h560M40 240h420M40 280h300"></path>
+        </g>
+        <circle cx="560" cy="220" r="10" fill="#a33d1f"></circle>
+      </svg>
+      <figcaption>Gambar inline SVG — tidak bergantung pada berkas eksternal.</figcaption>
+    </figure>
+
+    <h2>Alat yang saya pakai</h2>
+    <p>Tabel di bawah memakai <code>caption</code>, <code>thead</code>, <code>tbody</code>, dan atribut <code>scope</code> agar mudah dibaca, termasuk oleh pembaca layar.</p>
+
+    <table>
+      <caption>Alat kerja sehari-hari</caption>
+      <thead>
+        <tr>
+          <th scope="col">Alat</th>
+          <th scope="col">Fungsi</th>
+          <th scope="col">Mulai</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Termux</th>
+          <td>Menjalankan Linux dan kode dari ponsel</td>
+          <td>2025</td>
+        </tr>
+        <tr>
+          <th scope="row">Python</th>
+          <td>Latihan logika dan script CLI</td>
+          <td>2025</td>
+        </tr>
+        <tr>
+          <th scope="row">HTML &amp; CSS</th>
+          <td>Membangun halaman dan layout responsif</td>
+          <td>2025</td>
+        </tr>
+        <tr>
+          <th scope="row">Git</th>
+          <td>Menyimpan riwayat perubahan proyek</td>
+          <td>2026</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="note">Versi asli latihan ini ada di <code>../Table.html</code>; halaman ini adalah versi rapi yang sudah diperbaiki struktur dan tampilannya.</p>
+
+    <div class="proj-nav">
+      <a href="cek-bilangan.html">← Proyek Sebelumnya: Cek Bilangan</a>
+      <span>Proyek Berikutnya: —</span>
+    </div>
+
+    <footer>Dzakk · Tabel &amp; Gambar · 2026</footer>
+  </main>
+</body>
+</html>

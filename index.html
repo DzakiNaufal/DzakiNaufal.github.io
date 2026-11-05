@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="id" data-lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dzakk — Web & ML</title>
+  <meta name="description" content="Portofolio Dzakk: front-end, Python, dan dasar machine learning. Dibangun manual tanpa framework.">
+  <meta name="author" content="Dzakk">
+  <meta name="theme-color" content="#f4f1ea">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Dzakk">
+  <meta property="og:title" content="Dzakk — Web & ML">
+  <meta property="og:description" content="Front-end, Python, dan dasar machine learning. Portofolio yang ditulis manual tanpa framework.">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:image" content="assets/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Dzakk — Web, Python, Machine Learning">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dzakk — Web & ML">
+  <meta name="twitter:description" content="Front-end, Python, dan dasar machine learning. Ditulis manual tanpa framework.">
+  <meta name="twitter:image" content="assets/img/og.png">
+
+  <script>
+    (function () {
+      document.documentElement.classList.add('js');
+      try {
+        var theme = localStorage.getItem('dzakk-theme');
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.dataset.theme = theme;
+        }
+        var isDark = theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) {
+          var metaTheme = document.querySelector('meta[name="theme-color"]');
+          if (metaTheme) metaTheme.setAttribute('content', '#12110f');
+        }
+        var lang = localStorage.getItem('dzakk-lang');
+        if (lang !== 'id' && lang !== 'en') {
+          var browserLang = (navigator.language || 'id').toLowerCase();
+          var baseLang = browserLang.split('-')[0];
+          lang = baseLang === 'id' || baseLang === 'in' ? 'id' : 'en';
+        }
+        document.documentElement.dataset.lang = lang;
+        document.documentElement.lang = lang;
+      } catch (error) {}
+    })();
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Dzakk",
+      "jobTitle": "Front-end & Python learner",
+      "description": "Portofolio front-end, Python, dan dasar machine learning. Dibangun manual tanpa framework.",
+      "knowsAbout": ["HTML", "CSS", "JavaScript", "Python", "Machine Learning"]
+    }
+  </script>
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">
+    <span class="lang lang-id">Lewati ke konten</span>
+    <span class="lang lang-en">Skip to content</span>
+  </a>
+
+  <header class="site-header" data-header>
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Dzakk — beranda" data-i18n-aria-id="Dzakk — beranda" data-i18n-aria-en="Dzakk — home">
+        <span class="brand-mark" aria-hidden="true">D</span>
+        <span class="brand-name">Dzakk</span>
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Navigasi utama" data-i18n-aria-id="Navigasi utama" data-i18n-aria-en="Main navigation">
+        <a href="#about"><span class="lang lang-id">Tentang</span><span class="lang lang-en">About</span></a>
+        <a href="#skills"><span class="lang lang-id">Skill</span><span class="lang lang-en">Skills</span></a>
+        <a href="#projects"><span class="lang lang-id">Proyek</span><span class="lang lang-en">Projects</span></a>
+        <a href="#notes"><span class="lang lang-id">Catatan</span><span class="lang lang-en">Notes</span></a>
+        <a href="#contact"><span class="lang lang-id">Kontak</span><span class="lang lang-en">Contact</span></a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-button lang-toggle" type="button" data-lang-toggle aria-label="Ganti bahasa / Switch language">
+          <span class="lang-toggle-text lang lang-id">EN</span>
+          <span class="lang-toggle-text lang lang-en">ID</span>
+        </button>
+
+        <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label="Ganti tema" data-i18n-aria-id="Ganti tema" data-i18n-aria-en="Toggle theme" aria-pressed="false">
+          <svg class="icon icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"></path>
+          </svg>
+          <svg class="icon icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"></path>
+          </svg>
+        </button>
+
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Buka menu" data-i18n-aria-id="Buka menu" data-i18n-aria-en="Open menu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div class="hero-main">
+          <p class="eyebrow">
+            <span class="lang lang-id">Portofolio · 2026</span>
+            <span class="lang lang-en">Portfolio · 2026</span>
+          </p>
+
+          <h1 class="hero-name">Dzakk<span class="hero-mark" aria-hidden="true">*</span></h1>
+
+          <p class="hero-role">
+            <span class="lang lang-id">Front-end, Python, dan dasar machine learning.</span>
+            <span class="lang lang-en">Front-end, Python, and the basics of machine learning.</span>
+          </p>
+
+          <p class="hero-lede">
+            <span class="lang lang-id">Saya merancang dan membangun antarmuka web yang bersih, cepat, dan mudah dipakai — sambil memperdalam Python dan machine learning lewat kuliah dan proyek kecil.</span>
+            <span class="lang lang-en">I design and build clean, fast, usable web interfaces — while deepening my Python and machine learning skills through coursework and small projects.</span>
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-solid" href="#projects">
+              <span class="lang lang-id">Lihat proyek</span>
+              <span class="lang lang-en">See projects</span>
+              <span aria-hidden="true">↘</span>
+            </a>
+            <a class="button button-ghost" href="#contact">
+              <span class="lang lang-id">Hubungi saya</span>
+              <span class="lang lang-en">Get in touch</span>
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-meta" aria-label="Info singkat" data-i18n-aria-id="Info singkat" data-i18n-aria-en="Quick info">
+          <div class="meta-row">
+            <span class="meta-label">Status</span>
+            <span class="meta-value">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="lang lang-id">Terbuka untuk proyek kecil</span>
+              <span class="lang lang-en">Open to small projects</span>
+            </span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">
+              <span class="lang lang-id">Fokus</span>
+              <span class="lang lang-en">Focus</span>
+            </span>
+            <span class="meta-value">Web · Python · ML</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">
+              <span class="lang lang-id">Lokasi</span>
+              <span class="lang lang-en">Location</span>
+            </span>
+            <span class="meta-value">Indonesia</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">
+              <span class="lang lang-id">Diperbarui</span>
+              <span class="lang lang-en">Updated</span>
+            </span>
+            <span class="meta-value">2026</span>
+          </div>
+        </aside>
+      </div>
+
+      <div class="wrap hero-foot">
+        <span class="mono">HTML / CSS / JS</span>
+        <span class="rule" aria-hidden="true"></span>
+        <span class="mono">
+          <span class="lang lang-id">Dibuat manual, tanpa framework</span>
+          <span class="lang lang-en">Hand-built, no framework</span>
+        </span>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap section-grid">
+        <div class="section-head reveal">
+          <p class="section-index mono">01</p>
+          <h2>
+            <span class="lang lang-id">Tentang</span>
+            <span class="lang lang-en">About</span>
+          </h2>
+        </div>
+
+        <div class="section-body">
+          <div class="prose reveal">
+            <p class="lang lang-id">Saya Dzakk. Ketertarikan saya ada di persimpangan antara tampilan dan logika: bagaimana sebuah halaman terasa enak dipakai, dan bagaimana data di belakangnya bekerja.</p>
+            <p class="lang lang-en">I am Dzakk. My interest sits where interface meets logic: how a page feels good to use, and how the data behind it works.</p>
+
+            <p class="lang lang-id">Saat ini saya belajar lewat mata kuliah machine learning dan latihan kecil yang jujur — kalkulator CLI, latihan logika, dan halaman HTML. Saya lebih suka menyelesaikan hal kecil dengan rapi daripada memulai banyak hal setengah jadi.</p>
+            <p class="lang lang-en">Right now I learn through machine learning coursework and honest small exercises — a CLI calculator, logic drills, and HTML pages. I would rather finish something small properly than start many things halfway.</p>
+
+            <p class="lang lang-id">Situs ini saya tulis sendiri dengan HTML, CSS, dan JavaScript. Tidak ada template, tidak ada framework, tidak ada animasi yang tidak perlu.</p>
+            <p class="lang lang-en">This site is written by hand with HTML, CSS, and JavaScript. No template, no framework, no unnecessary animation.</p>
+          </div>
+
+          <dl class="facts reveal">
+            <div class="fact">
+              <dt>
+                <span class="lang lang-id">Sedang belajar</span>
+                <span class="lang lang-en">Currently learning</span>
+              </dt>
+              <dd>Python · JavaScript · Machine Learning</dd>
+            </div>
+            <div class="fact">
+              <dt>
+                <span class="lang lang-id">Alat sehari-hari</span>
+                <span class="lang lang-en">Daily tools</span>
+              </dt>
+              <dd>Termux · VS Code · Git</dd>
+            </div>
+            <div class="fact">
+              <dt>
+                <span class="lang lang-id">Cara kerja</span>
+                <span class="lang lang-en">How I work</span>
+              </dt>
+              <dd>
+                <span class="lang lang-id">Sederhana dulu, lalu dirapikan.</span>
+                <span class="lang lang-en">Simple first, then refined.</span>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="skills">
+      <div class="wrap section-grid">
+        <div class="section-head reveal">
+          <p class="section-index mono">02</p>
+          <h2>
+            <span class="lang lang-id">Skill</span>
+            <span class="lang lang-en">Skills</span>
+          </h2>
+          <p class="section-note">
+            <span class="lang lang-id">Tanpa progress bar palsu. Yang saya cantumkan adalah yang benar-benar saya pakai.</span>
+            <span class="lang lang-en">No fake progress bars. Only what I actually use.</span>
+          </p>
+        </div>
+
+        <div class="skill-groups">
+          <div class="skill-group reveal">
+            <h3 class="mono">Web</h3>
+            <ul>
+              <li>
+                <span class="skill-name">HTML</span>
+                <span class="skill-desc lang lang-id">Struktur semantik, formulir, tabel, aksesibilitas dasar.</span>
+                <span class="skill-desc lang lang-en">Semantic structure, forms, tables, basic accessibility.</span>
+              </li>
+              <li>
+                <span class="skill-name">CSS</span>
+                <span class="skill-desc lang lang-id">Layout responsif, custom properties, tipografi.</span>
+                <span class="skill-desc lang lang-en">Responsive layout, custom properties, typography.</span>
+              </li>
+              <li>
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-desc lang lang-id">DOM, event, interaksi ringan tanpa framework.</span>
+                <span class="skill-desc lang lang-en">DOM, events, lightweight interaction without frameworks.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3 class="mono">Programming</h3>
+            <ul>
+              <li>
+                <span class="skill-name">Python</span>
+                <span class="skill-desc lang lang-id">Skrip CLI, fungsi modular, logika percabangan, penanganan input.</span>
+                <span class="skill-desc lang lang-en">CLI scripts, modular functions, control flow, input handling.</span>
+              </li>
+              <li>
+                <span class="skill-name">Git</span>
+                <span class="skill-desc lang lang-id">Commit, branch, dan alur kerja dasar.</span>
+                <span class="skill-desc lang lang-en">Commits, branches, and basic workflow.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3 class="mono">Data / ML</h3>
+            <ul>
+              <li>
+                <span class="skill-name">NumPy · Pandas</span>
+                <span class="skill-desc lang lang-id">Eksplorasi data tabular dan komputasi array dari materi perkuliahan.</span>
+                <span class="skill-desc lang lang-en">Tabular data exploration and array operations from coursework.</span>
+              </li>
+              <li>
+                <span class="skill-name">scikit-learn</span>
+                <span class="skill-desc lang lang-id">Model dasar: klasifikasi dan regresi.</span>
+                <span class="skill-desc lang lang-en">Basic models: classification and regression.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3 class="mono">Tools</h3>
+            <ul>
+              <li>
+                <span class="skill-name">Termux · Linux</span>
+                <span class="skill-desc lang lang-id">Menulis dan menjalankan kode langsung dari ponsel.</span>
+                <span class="skill-desc lang lang-en">Writing and running code directly from a phone.</span>
+              </li>
+              <li>
+                <span class="skill-name">GitHub</span>
+                <span class="skill-desc lang lang-id">Menyimpan dan membagikan proyek.</span>
+                <span class="skill-desc lang lang-en">Hosting and sharing projects.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="wrap section-grid">
+        <div class="section-head reveal">
+          <p class="section-index mono">03</p>
+          <h2>
+            <span class="lang lang-id">Proyek</span>
+            <span class="lang lang-en">Projects</span>
+          </h2>
+          <p class="section-note">
+            <span class="lang lang-id">Latihan nyata, bukan mockup. Kode aslinya bisa dibuka.</span>
+            <span class="lang lang-en">Real exercises, not mockups. The actual code is open.</span>
+          </p>
+        </div>
+
+        <div class="project-list">
+          <article class="project-card project-card-featured reveal">
+            <div class="project-top">
+              <span class="project-index mono">01 · Unggulan</span>
+              <span class="project-status mono">
+                <span class="lang lang-id">Selesai</span>
+                <span class="lang lang-en">Done</span>
+              </span>
+            </div>
+            <h3>Kalkulator Sederhana</h3>
+            <p>
+              <span class="lang lang-id">Kalkulator antarmuka baris perintah (CLI) untuk operasi penjumlahan, pengurangan, perkalian, pembagian, dan akar kuadrat. Melatih pemisahan fungsi modular, percabangan alur logika, dan validasi input terminal.</span>
+              <span class="lang lang-en">A command-line interface (CLI) calculator for addition, subtraction, multiplication, division, and square root operations. Practising modular function design, branching logic, and terminal input validation.</span>
+            </p>
+            <div class="project-foot">
+              <ul class="tags" aria-label="Teknologi" data-i18n-aria-id="Teknologi" data-i18n-aria-en="Technologies">
+                <li>Python</li>
+                <li>CLI</li>
+                <li>38 Baris</li>
+                <li>Math Module</li>
+              </ul>
+              <a href="projects/kalkulator.html">
+                <span class="lang lang-id">Buka studi kasus</span>
+                <span class="lang lang-en">View showcase</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top">
+              <span class="project-index mono">02</span>
+              <span class="project-status mono">
+                <span class="lang lang-id">Selesai</span>
+                <span class="lang lang-en">Done</span>
+              </span>
+            </div>
+            <h3>Cek Bilangan</h3>
+            <p>
+              <span class="lang lang-id">Fungsi penentu kategori bilangan untuk menguji apakah suatu angka bernilai netral (nol), positif, atau negatif. Latihan evaluasi kondisi batas bertingkat secara terstruktur.</span>
+              <span class="lang lang-en">A categorization function to evaluate whether a number is neutral (zero), positive, or negative. Practice in structured multi-branch boundary condition testing.</span>
+            </p>
+            <div class="project-foot">
+              <ul class="tags" aria-label="Teknologi" data-i18n-aria-id="Teknologi" data-i18n-aria-en="Technologies">
+                <li>Python</li>
+                <li>Logika</li>
+                <li>8 Baris</li>
+              </ul>
+              <a href="projects/cek-bilangan.html">
+                <span class="lang lang-id">Buka studi kasus</span>
+                <span class="lang lang-en">View showcase</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top">
+              <span class="project-index mono">03</span>
+              <span class="project-status mono">
+                <span class="lang lang-id">Selesai</span>
+                <span class="lang lang-en">Done</span>
+              </span>
+            </div>
+            <h3>Tabel &amp; Gambar</h3>
+            <p>
+              <span class="lang lang-id">Penyusunan dokumen HTML semantik: penyajian grafis vektor mandiri (inline SVG) serta perancangan tabel terstruktur lengkap dengan tag caption, thead, tbody, dan atribut scope.</span>
+              <span class="lang lang-en">Semantic HTML document construction: standalone vector graphics presentation (inline SVG) and structured table design with caption, thead, tbody tags, and scope attributes.</span>
+            </p>
+            <div class="project-foot">
+              <ul class="tags" aria-label="Teknologi" data-i18n-aria-id="Teknologi" data-i18n-aria-en="Technologies">
+                <li>HTML5</li>
+                <li>Semantik</li>
+                <li>SVG Vektor</li>
+              </ul>
+              <a href="projects/tabel-gambar.html">
+                <span class="lang lang-id">Buka studi kasus</span>
+                <span class="lang lang-en">View showcase</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="notes">
+      <div class="wrap section-grid">
+        <div class="section-head reveal">
+          <p class="section-index mono">04</p>
+          <h2>
+            <span class="lang lang-id">Catatan</span>
+            <span class="lang lang-en">Notes</span>
+          </h2>
+          <p class="section-note">
+            <span class="lang lang-id">Tulisan pendek tentang hal yang sedang saya pelajari. Draf, bukan artikel jadi.</span>
+            <span class="lang lang-en">Short writing about what I am learning. Drafts, not finished articles.</span>
+          </p>
+        </div>
+
+        <ul class="note-list">
+          <li class="note-item reveal">
+            <div class="note-meta mono">
+              <span>Python</span>
+              <span class="note-status">
+                <span class="lang lang-id">Draf</span>
+                <span class="lang lang-en">Draft</span>
+              </span>
+            </div>
+            <h3>
+              <span class="lang lang-id">Penanganan Validasi Masukan pada Kalkulator CLI</span>
+              <span class="lang lang-en">Input Validation and Error Handling in a CLI Calculator</span>
+            </h3>
+            <p>
+              <span class="lang lang-id">Menangani eksepsi saat pengguna memasukkan karakter non-numerik, membagi bilangan dengan nol, atau memilih opsi di luar menu yang tersedia.</span>
+              <span class="lang lang-en">Handling exceptions when users input non-numeric characters, divide by zero, or select menu options out of range.</span>
+            </p>
+          </li>
+
+          <li class="note-item reveal">
+            <div class="note-meta mono">
+              <span>HTML</span>
+              <span class="note-status">
+                <span class="lang lang-id">Draf</span>
+                <span class="lang lang-en">Draft</span>
+              </span>
+            </div>
+            <h3>
+              <span class="lang lang-id">Urgensi Struktur Semantik pada Tabel Data</span>
+              <span class="lang lang-en">The Importance of Semantic Structure in Data Tables</span>
+            </h3>
+            <p>
+              <span class="lang lang-id">Perbedaan mendasar antara tabel data yang dapat diakses perangkat pembaca layar dan sekadar susunan elemen yang terlihat mirip tabel.</span>
+              <span class="lang lang-en">The fundamental distinction between accessible tabular data structures and visual elements that merely look like tables.</span>
+            </p>
+          </li>
+
+          <li class="note-item reveal">
+            <div class="note-meta mono">
+              <span>Tools</span>
+              <span class="note-status">
+                <span class="lang lang-id">Draf</span>
+                <span class="lang lang-en">Draft</span>
+              </span>
+            </div>
+            <h3>
+              <span class="lang lang-id">Eksplorasi Lingkungan Pemrograman Menggunakan Termux</span>
+              <span class="lang lang-en">Developing Software on Android via Termux</span>
+            </h3>
+            <p>
+              <span class="lang lang-id">Trik konfigurasi, penanganan batasan memori, dan alasan lingkungan Linux di Android sudah memadai untuk proyek komputasi terapan.</span>
+              <span class="lang lang-en">Configuration practices, memory constraints, and why a Linux environment on Android is suitable for applied programming projects.</span>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap section-grid">
+        <div class="section-head reveal">
+          <p class="section-index mono">05</p>
+          <h2>
+            <span class="lang lang-id">Kontak</span>
+            <span class="lang lang-en">Contact</span>
+          </h2>
+        </div>
+
+        <div class="contact-body">
+          <div class="reveal">
+            <p class="contact-lede">
+              <span class="lang lang-id">Ada proyek kecil, pertanyaan, atau sekadar ingin bertukar catatan? Kirim pesan.</span>
+              <span class="lang lang-en">A small project, a question, or just want to exchange notes? Send a message.</span>
+            </p>
+
+            <div class="contact-email">
+              <a href="mailto:hello@example.com" class="email-link">hello@example.com</a>
+              <button class="copy-button mono" type="button" data-copy="hello@example.com">
+                <span class="lang lang-id">Salin</span>
+                <span class="lang lang-en">Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <ul class="social-list reveal">
+            <li>
+              <a href="https://github.com/" target="_blank" rel="noopener">
+                <span class="social-label">GitHub</span>
+                <span class="social-value">@username <span aria-hidden="true">↗</span></span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/" target="_blank" rel="noopener">
+                <span class="social-label">Instagram</span>
+                <span class="social-value">@username <span aria-hidden="true">↗</span></span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener">
+                <span class="social-label">LinkedIn</span>
+                <span class="social-value">/in/username <span aria-hidden="true">↗</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p class="mono">© <span data-year>2026</span> Dzakk</p>
+      <p class="footer-note">
+        <span class="lang lang-id">Dibuat manual dengan HTML, CSS, dan JavaScript.</span>
+        <span class="lang lang-en">Hand-built with HTML, CSS, and JavaScript.</span>
+      </p>
+      <a class="mono back-top" href="#top">
+        <span class="lang lang-id">Kembali ke atas ↑</span>
+        <span class="lang lang-en">Back to top ↑</span>
+      </a>
+      <p class="colophon">
+        <span class="lang lang-id">Kolofon: Dirancang dan diprogram secara mandiri dari ponsel Android menggunakan lingkungan Linux Termux. Tipografi memadukan rujukan Iowan Old Style dan SF Mono. Dibangun murni menggunakan HTML, CSS, dan JavaScript tanpa kerangka kerja eksternal.</span>
+        <span class="lang lang-en">Colophon: Designed and coded independently on an Android phone using the Termux Linux environment. Typography combines Iowan Old Style and SF Mono. Hand-built with pure HTML, CSS, and JavaScript with zero external frameworks.</span>
+      </p>
+    </div>
+  </footer>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

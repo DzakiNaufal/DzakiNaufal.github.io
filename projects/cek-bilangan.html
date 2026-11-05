@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cek Bilangan — Proyek Python Dzakk</title>
+  <meta name="description" content="Studi kasus fungsi Python penentu kategori bilangan positif, netral, atau negatif dengan conditional branching.">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f1ea">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#12110f">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Cek Bilangan — Proyek Python Dzakk">
+  <meta property="og:description" content="Studi kasus fungsi Python penentu kategori bilangan positif, netral, atau negatif dengan conditional branching.">
+  <meta property="og:image" content="../assets/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/img/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f1ea;
+      --surface: #faf8f3;
+      --ink: #171411;
+      --muted: #665e52;
+      --line: #d6cfbf;
+      --accent: #a33d1f;
+      --string: #2d5a3f;
+      --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --bg: #12110f;
+        --surface: #1a1814;
+        --ink: #ece6da;
+        --muted: #999184;
+        --line: #322e27;
+        --accent: #e0a458;
+        --string: #7fbf8f;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: clamp(1.5rem, 6vw, 4rem) 1.25rem;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 2.5rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .back:hover { color: var(--accent); border-color: var(--accent); }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 8vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .lede {
+      margin: 0 0 2rem;
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    /* Code Box Container */
+    .code-box {
+      margin: 2.5rem 0 3rem;
+      border: 1.5px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+    }
+
+    .code-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .file-name {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .file-badge {
+      padding: 0.15rem 0.4rem;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 0.6rem;
+    }
+
+    .code-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .code-btn,
+    .code-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.55rem;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .code-btn:hover,
+    .code-link:hover {
+      border-color: var(--ink);
+      color: var(--accent);
+    }
+
+    .code-btn:active,
+    .code-link:active {
+      transform: translate(1px, 1px);
+    }
+
+    .code-viewport {
+      overflow-x: auto;
+      padding: 1.25rem 0;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.65;
+    }
+
+    pre {
+      margin: 0;
+      font-family: inherit;
+    }
+
+    code {
+      display: block;
+      counter-reset: line;
+      font-family: inherit;
+      white-space: pre;
+    }
+
+    .line {
+      display: flex;
+      padding-right: 1.5rem;
+      border-left: 2px solid transparent;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .line:hover,
+    .line:active {
+      background: rgba(30, 58, 95, 0.06);
+      border-left-color: var(--accent);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .line:hover,
+      .line:active {
+        background: rgba(126, 170, 208, 0.08);
+        border-left-color: var(--accent);
+      }
+    }
+
+    .line::before {
+      counter-increment: line;
+      content: counter(line);
+      display: inline-block;
+      width: 3.2rem;
+      min-width: 3.2rem;
+      padding-right: 1.2rem;
+      text-align: right;
+      color: var(--muted);
+      opacity: 0.55;
+      user-select: none;
+    }
+
+    /* Syntax highlight colors */
+    .k { color: var(--accent); font-weight: 600; }
+    .s { color: var(--string); }
+    .fn { color: var(--ink); font-weight: 600; }
+    .op { color: var(--muted); }
+
+    /* Terminal Output Box */
+    .terminal-box {
+      margin: 2.5rem 0 3rem;
+      border: 1.5px solid var(--ink);
+      background: var(--surface);
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .terminal-body {
+      padding: 1.25rem 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .term-prompt {
+      color: var(--accent);
+      user-select: none;
+      margin-right: 0.45rem;
+    }
+
+    .term-cmd {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .term-out {
+      color: var(--ink);
+    }
+
+    .term-dim {
+      color: var(--muted);
+    }
+
+    /* Breakdown Section */
+    h2 {
+      margin: 2.5rem 0 1rem;
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    p { margin: 0 0 1rem; }
+
+    .breakdown-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .breakdown-card {
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .breakdown-card h3 {
+      margin: 0 0 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .breakdown-card p {
+      margin: 0;
+      font-size: 0.94rem;
+      color: var(--muted);
+    }
+
+    /* Navigation Footer */
+    .proj-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .proj-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .proj-nav a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.5rem;
+      padding: 0.6rem 1rem;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transform: translate(-50%, 15px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      z-index: 100;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    @media (max-width: 540px) {
+      .code-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .code-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .proj-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../index.html">← Kembali ke portofolio</a>
+
+    <p class="eyebrow">Proyek 02 · Python Logika</p>
+    <h1>Cek Bilangan</h1>
+    <p class="lede">Fungsi ringkas untuk menentukan klasifikasi angka: apakah bilangan tersebut bernilai netral, positif, atau negatif. Latihan dasar struktur kondisi bertingkat dan penanganan argumen.</p>
+
+    <div class="code-box">
+      <div class="code-header">
+        <div class="code-meta">
+          <span class="file-name">cek-bilangan.py</span>
+          <span class="file-badge">8 Baris</span>
+        </div>
+        <div class="code-actions">
+          <button class="code-btn" type="button" id="copy-btn">
+            <span id="copy-text">Salin Kode</span>
+          </button>
+          <a class="code-link" href="cek-bilangan.py" download="cek-bilangan.py">Unduh .py ↘</a>
+        </div>
+      </div>
+
+      <div class="code-viewport">
+        <pre><code><span class="line"><span class="k">def</span> <span class="fn">argumenAngka</span>(angka):</span>
+<span class="line">    <span class="k">if</span> angka <span class="op">==</span> 0:</span>
+<span class="line">        <span class="k">print</span>(<span class="s">"Angka"</span>, angka, <span class="s">"adalah Netral"</span>)</span>
+<span class="line">    <span class="k">elif</span> angka <span class="op">&gt;</span> 0:</span>
+<span class="line">        <span class="k">print</span>(<span class="s">"Angka"</span>, angka, <span class="s">"adalah positif"</span>)</span>
+<span class="line">    <span class="k">else</span>:</span>
+<span class="line">        <span class="k">print</span>(<span class="s">"Angka"</span>, angka, <span class="s">"adalah negatif"</span>)</span>
+<span class="line"></span>
+<span class="line"><span class="fn">argumenAngka</span>(<span class="op">-</span>5)</span></code></pre>
+      </div>
+    </div>
+
+    <div class="terminal-box">
+      <div class="terminal-header">
+        <span>Contoh Eksekusi Terminal</span>
+        <span>bash · python3</span>
+      </div>
+      <div class="terminal-body"><span class="term-prompt">$</span><span class="term-cmd">python3 cek-bilangan.py</span>
+<span class="term-out">Angka -5 adalah negatif</span>
+
+<span class="term-prompt">#</span> <span class="term-dim">Pengujian di interpreter interaktif dengan argumen lain:</span>
+<span class="term-prompt">&gt;&gt;&gt;</span> <span class="term-cmd">argumenAngka(0)</span>
+<span class="term-out">Angka 0 adalah Netral</span>
+<span class="term-prompt">&gt;&gt;&gt;</span> <span class="term-cmd">argumenAngka(42)</span>
+<span class="term-out">Angka 42 adalah positif</span></div>
+    </div>
+
+    <h2>Catatan &amp; Bedah Alur</h2>
+    <div class="breakdown-grid">
+      <div class="breakdown-card">
+        <h3>1. Evaluasi Batas Nol</h3>
+        <p>Logika kondisi memeriksa <code>angka == 0</code> terlebih dahulu untuk menangkap kasus netral sebelum menguji perbandingan relasional <code>angka &gt; 0</code>. Ini menghindari kerancuan definisi angka nol.</p>
+      </div>
+
+      <div class="breakdown-card">
+        <h3>2. Penggunaan Argumen Fungsi</h3>
+        <p>Dengan membungkus logika ke dalam fungsi bernama <code>argumenAngka(angka)</code>, instruksi dapat dipanggil berkali-kali secara fleksibel dengan nilai uji berbeda tanpa menduplikasi kode.</p>
+      </div>
+
+      <div class="breakdown-card">
+        <h3>3. Evaluasi &amp; Catatan Jujur</h3>
+        <p>Saat ini fungsi langsung memanggil <code>print()</code>. Dalam penerapan nyata, fungsi yang lebih fleksibel sebaiknya mengembalikan nilai string (<code>return</code>) agar hasil klasifikasi dapat diolah kembali oleh bagian program lainnya.</p>
+      </div>
+    </div>
+
+    <div class="proj-nav">
+      <a href="kalkulator.html">← Proyek Sebelumnya: Kalkulator</a>
+      <a href="tabel-gambar.html">Proyek Berikutnya: Tabel &amp; Gambar →</a>
+    </div>
+
+    <footer>Dzakk · Cek Bilangan · 2026</footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Kode berhasil disalin</div>
+
+  <script>
+    (function() {
+      var copyBtn = document.getElementById("copy-btn");
+      var copyText = document.getElementById("copy-text");
+      var toast = document.getElementById("toast");
+      var timer = null;
+
+      var rawCode = 'def argumenAngka(angka):\n    if angka == 0:\n        print("Angka", angka, "adalah Netral")\n    elif angka > 0:\n        print("Angka", angka, "adalah positif")\n    else:\n        print("Angka", angka, "adalah negatif")\n\nargumenAngka(-5)';
+
+      if (copyBtn) {
+        copyBtn.addEventListener("click", function() {
+          function onSuccess() {
+            copyText.textContent = "Tersalin ✓";
+            toast.classList.add("show");
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+              copyText.textContent = "Salin Kode";
+              toast.classList.remove("show");
+            }, 2000);
+          }
+
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(rawCode).then(onSuccess, function() {
+              fallbackCopy(rawCode, onSuccess);
+            });
+          } else {
+            fallbackCopy(rawCode, onSuccess);
+          }
+        });
+      }
+
+      function fallbackCopy(text, cb) {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+          cb();
+        } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    })();
+  </script>
+</body>
+</html>
