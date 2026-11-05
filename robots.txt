@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# TODO: ganti example.com dengan domain asli setelah deploy.
-# Sitemap: https://example.com/sitemap.xml
+Sitemap: https://dzakinaufal.github.io/sitemap.xml
