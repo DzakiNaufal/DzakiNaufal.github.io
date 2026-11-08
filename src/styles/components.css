@@ -114,17 +114,33 @@
   gap: 1rem;
 }
 
-.hero-headline {
-  font-size: clamp(1.4rem, 2.8vw, 1.95rem);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.025em;
-  margin-top: 1.2rem;
+.hero-content {
+  margin-top: 0.85rem;
+}
+
+.hero-greeting {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.hero-name {
+  font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
   color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.hero-role {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-weight: 500;
+  color: var(--accent-blue);
+  letter-spacing: -0.01em;
+  margin-top: 0.35rem;
 }
 
 .hero-lede {
-  margin-top: 0.75rem;
+  margin-top: 0.85rem;
   color: var(--text-secondary);
   font-size: 0.94rem;
   line-height: 1.6;
@@ -134,6 +150,7 @@
 .hero-footer-actions {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 1.6rem;
 }
@@ -513,7 +530,7 @@
 }
 
 .clock-digits {
-  font-size: clamp(1.8rem, 3.2vw, 2.3rem);
+  font-size: clamp(2rem, 3.8vw, 2.6rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--text-primary);
@@ -521,174 +538,60 @@
 }
 
 .clock-zone {
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  margin-top: 0.25rem;
-}
-
-.clock-specs {
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.spec-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.76rem;
-}
-
-.spec-label {
-  color: var(--text-muted);
-}
-
-.spec-value {
-  color: var(--text-secondary);
-  font-size: 0.72rem;
-}
-
-/* ---------- Focus Tile (ML Research) ---------- */
-
-.focus-tile {
-  justify-content: space-between;
-}
-
-.focus-desc {
-  font-size: 0.84rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  margin-block: 0.6rem 0.8rem;
-}
-
-.focus-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 0.75rem;
-}
-
-.focus-item {
-  display: flex;
-  align-items: baseline;
-  gap: 0.65rem;
-}
-
-.focus-num {
-  font-size: 0.65rem;
-  color: var(--accent-blue);
-  font-weight: 600;
-}
-
-.focus-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.focus-topic-title {
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.focus-topic-sub {
   font-size: 0.7rem;
   color: var(--text-muted);
+  margin-top: 0.3rem;
 }
 
-/* ---------- Metrics Tile ---------- */
-
-.metrics-tile {
-  justify-content: space-between;
-}
-
-.metrics-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.65rem;
-  margin-top: 0.85rem;
-}
-
-.metric-box {
-  padding: 0.65rem 0.85rem;
-  border-radius: var(--radius-sm);
-  background: var(--bg-subtle);
-  border: 1px solid var(--border-subtle);
+.clock-footer-info {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  align-items: center;
   gap: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.75rem;
 }
 
-.metric-val {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--accent-blue);
-  letter-spacing: -0.02em;
+.clock-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--status-ok);
+  flex-shrink: 0;
 }
 
-.metric-label {
-  font-size: 0.78rem;
+.clock-status-text {
+  font-size: 0.76rem;
   color: var(--text-secondary);
-  flex: 1;
-  text-align: right;
+  margin: 0;
+  line-height: 1.4;
 }
 
-.metric-detail {
-  font-size: 0.64rem;
-  color: var(--text-muted);
+/* ---------- About Tile ---------- */
+
+.about-tile {
+  justify-content: space-between;
 }
 
-/* ---------- Philosophy Tile ---------- */
-
-.philosophy-tile {
-  background: var(--surface);
-}
-
-.principles-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.25rem;
-  margin-top: 1.25rem;
-}
-
-.principle-card {
-  padding: 1.1rem;
-  border-radius: var(--radius-sm);
-  background: var(--bg-subtle);
-  border: 1px solid var(--border-subtle);
+.about-narrative {
   display: flex;
   flex-direction: column;
-  transition: border-color var(--dur-fast) var(--ease);
-}
-
-.principle-card:hover {
-  border-color: var(--border-hover);
-}
-
-.principle-num {
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--accent-blue);
-  margin-bottom: 0.4rem;
-}
-
-.principle-title {
-  font-size: 0.96rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.35rem;
-  letter-spacing: -0.01em;
-}
-
-.principle-desc {
-  font-size: 0.82rem;
+  gap: 0.75rem;
+  margin-block: 0.85rem 1.25rem;
   color: var(--text-secondary);
-  line-height: 1.55;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.about-narrative p {
   margin: 0;
+}
+
+.about-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.85rem;
 }
 
 /* ---------- Project Filter Bar ---------- */

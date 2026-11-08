@@ -6,7 +6,6 @@ export default function ClockTile() {
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      // Format to WIB (UTC+7)
       const options = {
         timeZone: 'Asia/Jakarta',
         hour: '2-digit',
@@ -25,27 +24,23 @@ export default function ClockTile() {
   return (
     <div className="bento-card col-span-4 clock-tile">
       <div className="clock-top">
-        <span className="kicker">Workstation · Live</span>
+        <span className="kicker">Waktu &amp; Lokasi</span>
         <span className="badge badge-status">
           <span className="status-indicator"></span>
-          Online
+          Live
         </span>
       </div>
 
       <div className="clock-display">
         <span className="clock-digits font-mono">{time || '00:00:00'}</span>
-        <span className="clock-zone font-mono">WIB · UTC+7</span>
+        <span className="clock-zone font-mono">WIB · UTC+7 (Jakarta, ID)</span>
       </div>
 
-      <div className="clock-specs">
-        <div className="spec-row">
-          <span className="spec-label">Sistem Operasi</span>
-          <span className="spec-value font-mono">Linux (aarch64)</span>
-        </div>
-        <div className="spec-row">
-          <span className="spec-label">Runtime</span>
-          <span className="spec-value font-mono">Node 22 · Python 3.14</span>
-        </div>
+      <div className="clock-footer-info">
+        <span className="clock-status-dot" aria-hidden="true"></span>
+        <p className="clock-status-text">
+          Aktif berkarya &amp; terbuka untuk kolaborasi
+        </p>
       </div>
     </div>
   );

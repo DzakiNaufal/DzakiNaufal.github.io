@@ -2,11 +2,9 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Header from './components/Header';
 import HeroTile from './components/HeroTile';
 import ClockTile from './components/ClockTile';
-import FocusTile from './components/FocusTile';
+import AboutTile from './components/AboutTile';
 import TechStackTile from './components/TechStackTile';
-import MetricsTile from './components/MetricsTile';
 import ProjectCard from './components/ProjectCard';
-import PhilosophyTile from './components/PhilosophyTile';
 import CommandPalette from './components/CommandPalette';
 import Footer from './components/Footer';
 import { projects } from './data/projects';
@@ -75,16 +73,15 @@ export default function App() {
 
       <main className="container" id="main">
         <div className="bento-grid">
-          {/* Row 1: Profile & Realtime Workstation Clock */}
+          {/* Row 1: Profile & Realtime Live Clock */}
           <HeroTile />
           <ClockTile />
 
-          {/* Row 2: ML Research Focus, Technical Stack, & System Metrics */}
-          <FocusTile />
+          {/* Row 2: Human About Story & Core Tech Stack */}
+          <AboutTile />
           <TechStackTile />
-          <MetricsTile />
 
-          {/* Row 3: Projects Filter Bar */}
+          {/* Row 3: Projects Header & Category Filter Bar */}
           <div className="project-section-head">
             <h2 className="project-section-title">Koleksi Proyek Terapan</h2>
             <div className="project-filters" role="tablist" aria-label="Saring kategori proyek">
@@ -118,13 +115,10 @@ export default function App() {
             </div>
           </div>
 
-          {/* Row 4: Filtered Projects Cards with Interactive Terminal */}
+          {/* Row 4: Projects with Live Interactive Sandbox */}
           {filteredProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
-
-          {/* Row 5: Engineering Principles & Philosophy */}
-          <PhilosophyTile />
         </div>
       </main>
 
