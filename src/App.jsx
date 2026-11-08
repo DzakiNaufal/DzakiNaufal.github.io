@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Header from './components/Header';
-import HeroTile from './components/HeroTile';
-import ClockTile from './components/ClockTile';
-import AboutTile from './components/AboutTile';
-import TechStackTile from './components/TechStackTile';
-import ProjectCard from './components/ProjectCard';
-import CommandPalette from './components/CommandPalette';
+import HeroSection from './components/HeroSection';
+import ProjectStudio from './components/ProjectStudio';
+import ProjectStream from './components/ProjectStream';
+import TechDock from './components/TechDock';
+import AboutSection from './components/AboutSection';
 import Footer from './components/Footer';
+import CommandPalette from './components/CommandPalette';
 import { projects } from './data/projects';
 
 export default function App() {
@@ -50,18 +50,26 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const filteredProjects = useMemo(() => {
-    if (filter === 'all') return projects;
-    return projects.filter((p) => p.type === filter);
-  }, [filter]);
+  const featuredProject = useMemo(() => {
+    return projects.find((p) => p.featured) || projects[0];
+  }, []);
+
+  const secondaryProjects = useMemo(() => {
+    return projects.filter((p) => !p.featured);
+  }, []);
+
+  const filteredStream = useMemo(() => {
+    if (filter === 'all') return secondaryProjects;
+    return secondaryProjects.filter((p) => p.type === filter);
+  }, [filter, secondaryProjects]);
 
   const filterCounts = useMemo(() => {
     return {
-      all: projects.length,
-      python: projects.filter((p) => p.type === 'python').length,
-      web: projects.filter((p) => p.type === 'web').length,
+      all: secondaryProjects.length,
+      python: secondaryProjects.filter((p) => p.type === 'python').length,
+      web: secondaryProjects.filter((p) => p.type === 'web').length,
     };
-  }, []);
+  }, [secondaryProjects]);
 
   return (
     <div className="app-shell">
@@ -72,54 +80,25 @@ export default function App() {
       />
 
       <main className="container" id="main">
-        <div className="bento-grid">
-          {/* Row 1: Profile & Realtime Live Clock */}
-          <HeroTile />
-          <ClockTile />
+        {/* 1. Open Canvas Hero with Integrated Live Clock & Status Strip */}
+        <HeroSection />
 
-          {/* Row 2: Human About Story & Core Tech Stack */}
-          <AboutTile />
-          <TechStackTile />
+        {/* 2. Studio Application Window: Featured Project with Interactive Terminal */}
+        <ProjectStudio project={featuredProject} />
 
-          {/* Row 3: Projects Header & Category Filter Bar */}
-          <div className="project-section-head">
-            <h2 className="project-section-title">Koleksi Proyek Terapan</h2>
-            <div className="project-filters" role="tablist" aria-label="Saring kategori proyek">
-              <button
-                type="button"
-                className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
-                onClick={() => setFilter('all')}
-                role="tab"
-                aria-selected={filter === 'all'}
-              >
-                Semua ({filterCounts.all})
-              </button>
-              <button
-                type="button"
-                className={`filter-btn ${filter === 'python' ? 'active' : ''}`}
-                onClick={() => setFilter('python')}
-                role="tab"
-                aria-selected={filter === 'python'}
-              >
-                Python ({filterCounts.python})
-              </button>
-              <button
-                type="button"
-                className={`filter-btn ${filter === 'web' ? 'active' : ''}`}
-                onClick={() => setFilter('web')}
-                role="tab"
-                aria-selected={filter === 'web'}
-              >
-                Web ({filterCounts.web})
-              </button>
-            </div>
-          </div>
+        {/* 3. Asymmetrical Project Stream with Category Filtering */}
+        <ProjectStream
+          projects={filteredStream}
+          filter={filter}
+          onFilterChange={setFilter}
+          filterCounts={filterCounts}
+        />
 
-          {/* Row 4: Projects with Live Interactive Sandbox */}
-          {filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        {/* 4. Categorized Developer Tool Dock */}
+        <TechDock />
+
+        {/* 5. Editorial Split-Column Narrative: Real Human Story */}
+        <AboutSection />
       </main>
 
       <Footer />
