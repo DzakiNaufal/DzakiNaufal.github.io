@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dzaki Naufal — Software Engineer</title>
+    <meta name="description" content="Portofolio rekayasa perangkat lunak, pemrograman Python, dan eksplorasi antarmuka modern." />
+    <meta name="theme-color" content="#09090b" />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('dzakk-p2-theme');
+          var theme = saved === 'light' || saved === 'dark' ? saved : 'dark';
+          document.documentElement.dataset.theme = theme;
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#09090b' : '#fafafa');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
