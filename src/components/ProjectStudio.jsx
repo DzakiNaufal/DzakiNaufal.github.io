@@ -1,8 +1,10 @@
 import React from 'react';
 import InteractiveTerminal from './InteractiveTerminal';
+import { content } from '../data/content';
 
-export default function ProjectStudio({ project }) {
+export default function ProjectStudio({ project, lang }) {
   if (!project) return null;
+  const t = content[lang].projectsHeader;
 
   return (
     <section className="studio-window" id="projects">
@@ -18,11 +20,11 @@ export default function ProjectStudio({ project }) {
             <span className="file-icon" aria-hidden="true">py</span>
             kalkulator.py
           </span>
-          <span className="badge badge-blue">{project.category}</span>
+          <span className="badge badge-blue">{project.category[lang]}</span>
         </div>
 
         <div className="studio-header-right">
-          <span className="badge font-mono">01 · Unggulan</span>
+          <span className="badge font-mono">01</span>
         </div>
       </div>
 
@@ -31,34 +33,22 @@ export default function ProjectStudio({ project }) {
         {/* Left: Project Architecture & Technical Notes */}
         <div className="studio-spec-panel">
           <div className="studio-title-group">
-            <span className="kicker">Proyek Pilihan 01</span>
-            <h2 className="studio-title">{project.title}</h2>
+            <span className="kicker">01 · {project.category[lang]}</span>
+            <h2 className="studio-title">{project.title[lang]}</h2>
           </div>
 
-          <p className="studio-desc">{project.description}</p>
+          <p className="studio-desc">{project.description[lang]}</p>
 
           <div className="studio-highlights">
-            <div className="highlight-item">
-              <span className="highlight-bullet font-mono">01</span>
-              <div className="highlight-text">
-                <span className="highlight-title">Modularitas Fungsi</span>
-                <span className="highlight-sub">Operasi terpisah ke dalam def tambah, kurang, kali, bagi, dan akar.</span>
+            {project.highlights.map((h, idx) => (
+              <div key={idx} className="highlight-item">
+                <span className="highlight-bullet font-mono">0{idx + 1}</span>
+                <div className="highlight-text">
+                  <span className="highlight-title">{h.title[lang]}</span>
+                  <span className="highlight-sub">{h.sub[lang]}</span>
+                </div>
               </div>
-            </div>
-            <div className="highlight-item">
-              <span className="highlight-bullet font-mono">02</span>
-              <div className="highlight-text">
-                <span className="highlight-title">Penanganan Tipe Data</span>
-                <span className="highlight-sub">Input dikonversi eksplisit ke float dan int dengan modul math standar.</span>
-              </div>
-            </div>
-            <div className="highlight-item">
-              <span className="highlight-bullet font-mono">03</span>
-              <div className="highlight-text">
-                <span className="highlight-title">Catatan Pengembangan</span>
-                <span className="highlight-sub">Evaluasi penanganan ZeroDivisionError dan ValueError dengan try-except.</span>
-              </div>
-            </div>
+            ))}
           </div>
 
           <div className="studio-tags">
@@ -76,7 +66,7 @@ export default function ProjectStudio({ project }) {
               rel="noopener noreferrer"
               className="btn btn-primary"
             >
-              Buka Studi Kasus <span aria-hidden="true">→</span>
+              {t.btnDemo} <span aria-hidden="true">→</span>
             </a>
             {project.sourceUrl && (
               <a
@@ -85,7 +75,7 @@ export default function ProjectStudio({ project }) {
                 rel="noopener noreferrer"
                 className="btn btn-ghost"
               >
-                Kode Sumber <span aria-hidden="true">↗</span>
+                {t.btnSource} <span aria-hidden="true">↗</span>
               </a>
             )}
           </div>

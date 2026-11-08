@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { content } from '../data/content';
 
-export default function CommandPalette({ isOpen, onClose, theme, onToggleTheme }) {
+export default function CommandPalette({ isOpen, onClose, theme, onToggleTheme, lang, onToggleLang }) {
   const [query, setQuery] = useState('');
   const [copied, setCopied] = useState(false);
   const inputRef = useRef(null);
+  const t = content[lang].cmd;
 
   useEffect(() => {
     if (isOpen) {
@@ -38,14 +40,14 @@ export default function CommandPalette({ isOpen, onClose, theme, onToggleTheme }
     {
       id: 'copy-email',
       icon: '✉',
-      title: copied ? 'Email Berhasil Disalin! ✓' : 'Salin Alamat Email',
+      title: copied ? t.emailCopied : t.copyEmail,
       subtitle: 'dzakinaufal976@gmail.com',
       action: handleCopyEmail,
     },
     {
       id: 'github',
       icon: '↗',
-      title: 'Kunjungi Profil GitHub',
+      title: t.github,
       subtitle: 'github.com/DzakiNaufal',
       action: () => {
         window.open('https://github.com/DzakiNaufal', '_blank');
@@ -53,10 +55,20 @@ export default function CommandPalette({ isOpen, onClose, theme, onToggleTheme }
       },
     },
     {
+      id: 'toggle-lang',
+      icon: '🌐',
+      title: t.toggleLang,
+      subtitle: lang === 'id' ? 'Aktif: Bahasa Indonesia' : 'Active: English',
+      action: () => {
+        onToggleLang();
+        onClose();
+      },
+    },
+    {
       id: 'toggle-theme',
       icon: theme === 'dark' ? '☼' : '☾',
-      title: theme === 'dark' ? 'Beralih ke Mode Terang (Crisp Light)' : 'Beralih ke Mode Gelap (Dark Zinc)',
-      subtitle: 'Pengaturan tema antarmuka',
+      title: theme === 'dark' ? t.toggleThemeDark : t.toggleThemeLight,
+      subtitle: t.themeSub,
       action: () => {
         onToggleTheme();
         onClose();
@@ -65,7 +77,7 @@ export default function CommandPalette({ isOpen, onClose, theme, onToggleTheme }
     {
       id: 'goto-projects',
       icon: '↘',
-      title: 'Lompat ke Daftar Proyek',
+      title: t.gotoProjects,
       subtitle: 'Kalkulator, Cek Bilangan, Tabel HTML',
       action: () => {
         document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
@@ -93,7 +105,7 @@ export default function CommandPalette({ isOpen, onClose, theme, onToggleTheme }
             ref={inputRef}
             type="text"
             className="cmd-input"
-            placeholder="Cari perintah atau tindakan..."
+            placeholder={t.placeholder}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -102,7 +114,7 @@ export default function CommandPalette({ isOpen, onClose, theme, onToggleTheme }
 
         <ul className="cmd-list">
           {filtered.length === 0 ? (
-            <li className="cmd-empty">Tidak ada perintah yang cocok.</li>
+            <li className="cmd-empty">{t.empty}</li>
           ) : (
             filtered.map((cmd) => (
               <li key={cmd.id}>

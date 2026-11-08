@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { content } from '../data/content';
 
-export default function Footer() {
+export default function Footer({ lang }) {
   const [copied, setCopied] = useState(false);
+  const t = content[lang].footer;
 
   const copyEmail = () => {
     navigator.clipboard.writeText('dzakinaufal976@gmail.com');
@@ -13,8 +15,7 @@ export default function Footer() {
     <footer className="site-footer" id="contact">
       <div className="container footer-inner">
         <div className="footer-left">
-          <p className="footer-copy">© 2026 Dzaki Naufal</p>
-          <p className="footer-sub">Vite · React · Dark Tech Architecture</p>
+          <p className="footer-copy">{t.copy}</p>
         </div>
 
         <div className="footer-links">
@@ -22,9 +23,9 @@ export default function Footer() {
             type="button"
             className="footer-link-btn"
             onClick={copyEmail}
-            title="Klik untuk menyalin email"
+            title="Salin alamat email"
           >
-            {copied ? 'Tersalin ✓' : 'dzakinaufal976@gmail.com'}
+            {copied ? t.emailCopied : 'dzakinaufal976@gmail.com'}
           </button>
           <span className="footer-divider" aria-hidden="true">·</span>
           <a
@@ -37,7 +38,7 @@ export default function Footer() {
           </a>
           <span className="footer-divider" aria-hidden="true">·</span>
           <a href="#top" className="footer-link">
-            Ke Atas ↑
+            {t.backToTop}
           </a>
         </div>
       </div>

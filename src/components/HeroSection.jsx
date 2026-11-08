@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { content } from '../data/content';
 
-export default function HeroSection() {
+export default function HeroSection({ lang }) {
   const [copied, setCopied] = useState(false);
   const [time, setTime] = useState('');
+  const t = content[lang].hero;
 
   useEffect(() => {
     const updateTime = () => {
@@ -30,11 +32,11 @@ export default function HeroSection() {
 
   return (
     <section className="hero-open-section" id="top">
-      {/* Live Integrated Status Bar */}
+      {/* Live Status Strip */}
       <div className="hero-status-strip">
         <span className="badge badge-status">
           <span className="status-indicator"></span>
-          Terbuka untuk proyek
+          {t.status}
         </span>
         <span className="hero-status-divider" aria-hidden="true">·</span>
         <span className="hero-time-badge font-mono">
@@ -47,16 +49,13 @@ export default function HeroSection() {
 
       {/* Main Open Hero Content */}
       <div className="hero-open-content">
-        <span className="kicker hero-kicker">Portofolio · 2026</span>
-        <h1 className="hero-open-name">Dzaki Naufal</h1>
-        <p className="hero-open-role">Web Developer &amp; Pemrogram Python</p>
-        <p className="hero-open-lede">
-          Saya merancang antarmuka web yang bersih, cepat, dan mudah digunakan — sembari mendalami pemrograman Python serta konsep dasar pembelajaran mesin melalui perkuliahan dan proyek terapan.
-        </p>
+        <h1 className="hero-open-name">{t.name}</h1>
+        <p className="hero-open-role">{t.role}</p>
+        <p className="hero-open-lede">{t.bio}</p>
 
         <div className="hero-open-actions">
           <a href="#projects" className="btn btn-primary">
-            Lihat Proyek <span aria-hidden="true">↘</span>
+            {t.ctaProjects} <span aria-hidden="true">↘</span>
           </a>
           <button
             type="button"
@@ -64,7 +63,7 @@ export default function HeroSection() {
             onClick={copyEmail}
             title="Salin alamat email"
           >
-            {copied ? 'Email Disalin ✓' : 'Salin Email ✉'}
+            {copied ? t.emailCopied : `${t.ctaEmail} ✉`}
           </button>
           <a
             href="https://github.com/DzakiNaufal"
@@ -72,7 +71,7 @@ export default function HeroSection() {
             rel="noopener noreferrer"
             className="btn btn-ghost"
           >
-            GitHub <span aria-hidden="true">↗</span>
+            {t.ctaGithub} <span aria-hidden="true">↗</span>
           </a>
         </div>
       </div>

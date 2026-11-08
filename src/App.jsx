@@ -13,6 +13,18 @@ export default function App() {
   const [theme, setTheme] = useState(() => {
     return document.documentElement.dataset.theme || 'dark';
   });
+
+  const [lang, setLang] = useState(() => {
+    try {
+      const saved = localStorage.getItem('dzakk-p2-lang');
+      if (saved === 'id' || saved === 'en') return saved;
+      const browser = (navigator.language || 'id').toLowerCase();
+      return browser.startsWith('id') || browser.startsWith('in') ? 'id' : 'en';
+    } catch (e) {
+      return 'id';
+    }
+  });
+
   const [isCmdOpen, setIsCmdOpen] = useState(false);
   const [filter, setFilter] = useState('all');
 
@@ -31,6 +43,21 @@ export default function App() {
   const toggleTheme = useCallback(() => {
     applyTheme(theme === 'dark' ? 'light' : 'dark');
   }, [theme, applyTheme]);
+
+  const toggleLang = useCallback(() => {
+    setLang((prev) => {
+      const next = prev === 'id' ? 'en' : 'id';
+      try {
+        localStorage.setItem('dzakk-p2-lang', next);
+        document.documentElement.lang = next;
+      } catch (e) {}
+      return next;
+    });
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   // Global keyboard shortcut for Command Palette (K or Cmd+K / Ctrl+K)
   useEffect(() => {
@@ -76,15 +103,17 @@ export default function App() {
       <Header
         theme={theme}
         onToggleTheme={toggleTheme}
+        lang={lang}
+        onToggleLang={toggleLang}
         onOpenCommandPalette={() => setIsCmdOpen(true)}
       />
 
       <main className="container" id="main">
         {/* 1. Open Canvas Hero with Integrated Live Clock & Status Strip */}
-        <HeroSection />
+        <HeroSection lang={lang} />
 
         {/* 2. Studio Application Window: Featured Project with Interactive Terminal */}
-        <ProjectStudio project={featuredProject} />
+        <ProjectStudio project={featuredProject} lang={lang} />
 
         {/* 3. Asymmetrical Project Stream with Category Filtering */}
         <ProjectStream
@@ -92,22 +121,25 @@ export default function App() {
           filter={filter}
           onFilterChange={setFilter}
           filterCounts={filterCounts}
+          lang={lang}
         />
 
-        {/* 4. Categorized Developer Tool Dock */}
-        <TechDock />
+        {/* 4. Categorized Developer Tool Dock: Purely Dzaki's Skills */}
+        <TechDock lang={lang} />
 
-        {/* 5. Editorial Split-Column Narrative: Real Human Story */}
-        <AboutSection />
+        {/* 5. Editorial Split-Column Narrative: Real Human Story of a D4 TRPL Student */}
+        <AboutSection lang={lang} />
       </main>
 
-      <Footer />
+      <Footer lang={lang} />
 
       <CommandPalette
         isOpen={isCmdOpen}
         onClose={() => setIsCmdOpen(false)}
         theme={theme}
         onToggleTheme={toggleTheme}
+        lang={lang}
+        onToggleLang={toggleLang}
       />
     </div>
   );
