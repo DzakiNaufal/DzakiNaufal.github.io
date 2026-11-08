@@ -1,6 +1,7 @@
 import React from 'react';
 import { skillCategories } from '../data/projects';
 import { content } from '../data/content';
+import TechIcon from './TechIcons';
 
 export default function TechDock({ lang }) {
   const t = content[lang].skills;
@@ -25,7 +26,10 @@ export default function TechDock({ lang }) {
               {cat.items.map((item) => (
                 <div key={item.name} className="dock-item">
                   <div className="dock-item-top">
-                    <span className="dock-item-name">{item.name}</span>
+                    <span className="dock-item-label">
+                      <TechIcon name={item.name} />
+                      <span className="dock-item-name">{item.name}</span>
+                    </span>
                     <span className="badge badge-blue">{t.statusActive}</span>
                   </div>
                   <span className="dock-item-role">{item.role[lang]}</span>

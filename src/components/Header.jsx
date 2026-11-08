@@ -14,7 +14,7 @@ export default function Header({ theme, onToggleTheme, lang, onToggleLang, onOpe
       <div className="container header-inner">
         {/* Brand */}
         <a href="#top" className="brand" aria-label="Dzaki Naufal — Beranda">
-          <span className="brand-mark">D</span>
+          <span className="brand-mark font-mono">DN</span>
           <span className="brand-title">Dzaki Naufal</span>
         </a>
 
