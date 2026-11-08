@@ -49,16 +49,8 @@ export default function HeroSection({ lang }) {
 
       {/* Main Open Hero Content */}
       <div className="hero-open-content">
-        <div className="hero-profile-row">
-          <div className="hero-monogram-badge font-mono" aria-hidden="true">
-            DN
-          </div>
-          <div className="hero-profile-titles">
-            <h1 className="hero-open-name">{t.name}</h1>
-            <p className="hero-open-role">{t.role}</p>
-          </div>
-        </div>
-
+        <h1 className="hero-open-name">{t.name}</h1>
+        <p className="hero-open-role">{t.role}</p>
         <p className="hero-open-lede">{t.bio}</p>
 
         <div className="hero-open-actions">

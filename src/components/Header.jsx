@@ -14,7 +14,14 @@ export default function Header({ theme, onToggleTheme, lang, onToggleLang, onOpe
       <div className="container header-inner">
         {/* Brand */}
         <a href="#top" className="brand" aria-label="Dzaki Naufal — Beranda">
-          <span className="brand-mark font-mono">DN</span>
+          <img
+            src="/avatar.jpg"
+            alt="Foto profil Dzaki Naufal"
+            className="brand-avatar"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
           <span className="brand-title">Dzaki Naufal</span>
         </a>
 
