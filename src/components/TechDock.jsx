@@ -18,7 +18,7 @@ export default function TechDock({ lang }) {
         {skillCategories.map((cat, idx) => (
           <div key={idx} className="dock-column">
             <div className="dock-col-head">
-              <span className="dock-cat-icon font-mono" aria-hidden="true">{cat.icon}</span>
+              <span className="dock-cat-icon font-mono" aria-hidden="true">/{cat.tag || `0${idx + 1}`}</span>
               <span className="dock-cat-name font-mono">{cat.title[lang]}</span>
             </div>
 
@@ -30,7 +30,6 @@ export default function TechDock({ lang }) {
                       <TechIcon name={item.name} />
                       <span className="dock-item-name">{item.name}</span>
                     </span>
-                    <span className="badge badge-blue">{t.statusActive}</span>
                   </div>
                   <span className="dock-item-role">{item.role[lang]}</span>
                 </div>

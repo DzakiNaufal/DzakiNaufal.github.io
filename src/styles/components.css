@@ -463,6 +463,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   padding: 0.5rem 0.85rem;
   border-bottom: 1px solid var(--border);
   background: var(--bg-subtle);
@@ -490,6 +492,7 @@
 .terminal-actions-quick {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.35rem;
 }
 
@@ -523,6 +526,8 @@
   margin: 0;
   padding: 0.85rem 1rem;
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: 380px;
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
   flex: 1;
@@ -583,18 +588,61 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  margin-top: 0.35rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+  white-space: normal;
+  flex-wrap: wrap;
 }
 
-.terminal-cursor {
-  display: inline-block;
+.term-cmd-prefix {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.term-cli-input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.2rem 0.5rem;
+  outline: none;
+  flex: 1;
+  min-width: 0;
+  transition: border-color var(--dur-fast) var(--ease);
+}
+
+.term-cli-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 1px var(--accent-blue);
+}
+
+.term-cli-input::placeholder {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+}
+
+.term-run-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   color: var(--accent-blue);
-  animation: term-blink 1s step-end infinite;
+  padding: 0.2rem 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease);
 }
 
-@keyframes term-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+.term-run-btn:hover {
+  background: var(--accent-blue);
+  color: #fff;
+  border-color: var(--accent-blue);
 }
 
 /* ---------- 5. Asymmetrical Project Stream ---------- */
@@ -629,6 +677,7 @@
 .stream-filters {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.4rem;
 }
 
@@ -830,15 +879,19 @@
 }
 
 .tech-svg-icon {
-  width: 15px;
-  height: 15px;
-  color: var(--accent-blue);
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
   flex-shrink: 0;
   transition: transform var(--dur-fast) var(--ease);
 }
 
 .dock-item:hover .tech-svg-icon {
   transform: scale(1.15);
+}
+
+[data-theme="dark"] .tech-icon-flask {
+  filter: invert(1);
 }
 
 .dock-item-name {
@@ -1143,8 +1196,40 @@
 }
 
 @media (max-width: 640px) {
-  .cmd-label {
+  .cmd-label,
+  .cmd-trigger .kbd {
     display: none;
+  }
+
+  .hero-status-divider {
+    display: none;
+  }
+
+  .hero-status-strip {
+    gap: 0.45rem;
+  }
+
+  .studio-header {
+    padding: 0.55rem 0.85rem;
+  }
+
+  .studio-header-left .badge {
+    display: none;
+  }
+
+  .terminal-actions-quick {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .term-quick-btn {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .stream-filters .filter-btn {
+    font-size: 0.68rem;
+    padding: 0.3rem 0.6rem;
   }
 
   .dock-grid {
@@ -1174,5 +1259,28 @@
 
   .footer-links {
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .terminal-title {
+    font-size: 0.6rem;
+  }
+
+  .term-active-line {
+    gap: 0.35rem;
+  }
+
+  .term-cmd-prefix {
+    font-size: 0.65rem;
+  }
+
+  .term-cli-input {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .brand-title {
+    font-size: 0.88rem;
   }
 }

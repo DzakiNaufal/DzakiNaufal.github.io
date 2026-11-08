@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "cd /root/portfolio-v2 && npm run dev",
-    "build": "cd /root/portfolio-v2 && npm run build",
-    "preview": "cd /root/portfolio-v2 && npm run preview"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "^18.3.1",

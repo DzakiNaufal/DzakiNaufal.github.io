@@ -18,7 +18,7 @@ export default function ProjectStudio({ project, lang }) {
           </div>
           <span className="studio-file-tab font-mono">
             <span className="file-icon" aria-hidden="true">py</span>
-            kalkulator.py
+            {project.fileName || 'app.py'}
           </span>
           <span className="badge badge-blue">{project.category[lang]}</span>
         </div>
